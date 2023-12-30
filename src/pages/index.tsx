@@ -19,7 +19,7 @@ export default function Home() {
         <TopAnime resource="top/anime" query="limit=5" />
         <div className="mt-6 flex gap-5 justify-between w-full">
           <div className="w-[42.3rem]">
-            <TopAnime resource="seasons/now" query="limit=3" />
+            <TopAnime resource="seasons/now" query="limit=9" />
           </div>
           <div className="w-[26.5rem]">
             <SideAnime resource="seasons/upcoming" query="limit=4" headerTitle="UPCOMING" linkShowAll="/top/anime" />
