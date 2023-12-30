@@ -1,13 +1,23 @@
-import { GetAnimeResponse } from '@/pages/api/user/anime';
+import { useEffect, useState } from 'react';
 
-const JkanAnime = async () => {
-  const anime = await GetAnimeResponse('top/anime', 'limit=5');
-  console.log(anime);
-  return (
-    <div>
-      <h1>JkanAnime</h1>
-    </div>
-  );
+export const AnimesResponse = (resource: string, query: string) => {
+  const [animes, setAnimes] = useState([]);
+  useEffect(() => {
+    fetch(`https://api.jikan.moe/v4/${resource}?${query}`)
+      .then((res) => res.json())
+      .then((response) => setAnimes(response.data));
+  }, [resource, query]);
+
+  return animes;
 };
 
-export default JkanAnime;
+export const AnimeEntryResponse = (resource: string, query: string) => {
+  const [animes, setAnimes] = useState([]);
+  useEffect(() => {
+    fetch(`https://api.jikan.moe/v4/${resource}?${query}`)
+      .then((res) => res.json())
+      .then((response) => setAnimes(response.data.entry));
+  }, [resource, query]);
+
+  return animes;
+};
