@@ -1,4 +1,4 @@
-import RecommendationAnime from '@/components/views/anime/RecommendationAnime';
+import SideAnime from '@/components/views/anime/RecommendationAnime';
 import TopAnime from '@/components/views/anime/TopAnime';
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
@@ -17,13 +17,12 @@ export default function Home() {
 
       <main className={`flex min-h-screen flex-col items-center px-28 py-6 ${inter.className}`}>
         <TopAnime resource="top/anime" query="limit=5" />
-
         <div className="mt-6 flex gap-5 justify-between w-full">
           <div className="w-[42.3rem]">
             <TopAnime resource="seasons/now" query="limit=3" />
           </div>
           <div className="w-[26.5rem]">
-            <RecommendationAnime resource="recommendations/anime" />
+            <SideAnime resource="seasons/upcoming" query="limit=4" headerTitle="UPCOMING" linkShowAll="/top/anime" />
           </div>
         </div>
         {/* 

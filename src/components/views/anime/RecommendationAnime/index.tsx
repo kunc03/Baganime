@@ -25,31 +25,42 @@ type animeTypes = {
 type animeProps = {
   resource: string;
   query?: string;
+  headerTitle: string;
+  linkShowAll: string;
+  className?: string;
 };
 
-const RecommendationAnime = (props: animeProps) => {
-  const { resource, query } = props;
-  const animes = AnimeEntryResponse(`${resource}`, `${query}`);
+type Propstypes = {
+  query?: string;
+  styleTitle?: string;
+  children: React.ReactNode;
+};
+
+const SideAnime = (props: animeProps) => {
+  const { resource, query, headerTitle, linkShowAll, className } = props;
+  const animes = AnimeEntryResponse(`${resource}?${query}`);
   return (
     <>
-      <AnimeLayout headerTitle="TERPOPULER" linkShowAll="/top/anime" className="flex-col">
-        {animes?.map((anime: animeTypes, index: number) => (
-          <Link href={`/anime/${anime.mal_id}`} key={index} className={`w-[12.4rem] h-[22rem] rounded-b `}>
-            <Image src={anime.images.jpg.image_url} alt=".." width={250} height={250} className={`rounded w-full h-[18rem] object-cover`} />
-            <div className="py-2 text-sky-800 flex flex-col gap-2">
-              <div className="flex items-center gap-1">
-                <h3 className="bg-sky-500 rounded-full text-sky-50 text-[10px] w-5 h-5 flex items-center justify-center p-1">TV</h3>
-                <h3 className="bg-sky-500 rounded-full text-sky-50 text-[10px] w-5 h-5 flex items-center justify-center p-1">HD</h3>
-              </div>
-              <h2 className={`font-bold truncate`}>{anime.title}</h2>
-
-              {/* <h3 className="text-xs font-bold">Episode {anime.episodes}</h3> */}
-            </div>
-          </Link>
-        ))}
-      </AnimeLayout>
+      <div className="w-full py-4 px-5 rounded-lg flex flex-col ring-2 ring-sky-300 bg-sky-100">
+        <div className="">
+          <div className="flex justify-between items-center font-semibold text-sky-700 mb-2">
+            <h1 className="">{headerTitle}</h1>
+            <Link href={linkShowAll} className="text-xs hover:text-sky-500">
+              LIHAT SEMUA
+            </Link>
+          </div>
+          <div className={`flex flex-wrap ${className} gap-5 w-full md:justify-between justify-center content-start items-center`}>
+            {animes?.map((anime: animeTypes, index: number) => (
+              <Link href={`/anime/${anime.mal_id}`} key={index} className={`w-full rounded-b relative`}>
+                <Image src={anime.images.jpg.large_image_url} alt=".." width={250} height={250} className={`rounded-lg w-full h-[15rem] object-cover`} />
+                <h2 className={`absolute bottom-3 truncate text-center bg-sky-100 text-sky-700 font-semibold w-full py-1 px-2`}>{anime.title}</h2>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 
-export default RecommendationAnime;
+export default SideAnime;

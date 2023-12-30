@@ -1,3 +1,4 @@
+import { AsyncResource } from 'async_hooks';
 import { useEffect, useState } from 'react';
 
 export const AnimesResponse = (resource: string, query: string) => {
@@ -11,13 +12,13 @@ export const AnimesResponse = (resource: string, query: string) => {
   return animes;
 };
 
-export const AnimeEntryResponse = (resource: string, query: string) => {
+export const AnimeEntryResponse = (resource: string) => {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
-    fetch(`https://api.jikan.moe/v4/${resource}?${query}`)
+    fetch(`https://api.jikan.moe/v4/${resource}`)
       .then((res) => res.json())
-      .then((response) => setAnimes(response.data.entry));
-  }, [resource, query]);
+      .then((response) => setAnimes(response.data));
+  }, [resource]);
 
   return animes;
 };
